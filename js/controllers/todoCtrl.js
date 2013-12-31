@@ -10,7 +10,15 @@ todoapp.controller('TodoCtrl', function TodoCtrl($scope, $location, $timeout, to
     $scope.location = $location;
 
     $scope.$watch('location.path()', function (path) {
-        $scope.statusFilter = { '/active': {completed: false}, '/completed': {completed: true} }[path];
+        console.log(path);
+        console.log($scope.todos);
+        if(path == '/active') {
+            $scope.statusFilter = {completed: false};
+        } else if(path == '/completed') {
+            $scope.statusFilter = {completed: true};
+        } else {
+            $scope.statusFilter = {};
+        }
     });
 
     $scope.$watch('remainingCount == 0', function (val) {
@@ -94,8 +102,8 @@ todoapp.controller('TodoCtrl', function TodoCtrl($scope, $location, $timeout, to
     };
 
     $scope.todoCompleted = function (todo) {
-        $scope.remainingCount += todo.completed ? -1 : 1;
-        todoStorage.put(todos);
+        todo.completed = todo.completed ? false : true;
+        todoStorage.putTodo($scope.activeProject, $scope.todos);
     };
 
     $scope.clearCompletedTodos = function () {
