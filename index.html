@@ -39,14 +39,15 @@
         <content has-header="true" scroll="false">
             <list>
                 <todo class="item" ng-repeat="todo in todos | filter:statusFilter track by $index">
+                    <i class="icon ion-email"></i>
                     {{todo.title}}
                 </todo>
             </list>
         </content>
-        <div class="tabs">
-            <a class="tab-item tab-item-calm" ng-class="{selected: location.path() == '/'} " href="#/">All</a>
-            <a class="tab-item tab-item-calm" ng-class="{selected: location.path() == '/active'}" href="#/active">Active</a>
-            <a class="tab-item tab-item-calm" ng-class="{selected: location.path() == '/completed'}" href="#/completed">Completed</a>
+        <div class="tabs tabs-dark">
+            <a class="tab-item tab-item-energized" ng-class="{active: location.path() == '/'} " href="#/">All</a>
+            <a class="tab-item tab-item-energized" ng-class="{active: location.path() == '/active'}" href="#/active">Active</a>
+            <a class="tab-item tab-item-energized" ng-class="{active: location.path() == '/completed'}" href="#/completed">Completed</a>
         </div>
     </pane>
     <!-- Left menu -->
