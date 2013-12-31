@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <title>Todo</title>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -21,93 +21,98 @@
     <script src="js/controllers/todoCtrl.js"></script>
     <script src="js/services/todoStorage.js"></script>
 
-  </head>
-  <body ng-app="todoapp" ng-controller="TodoCtrl">
-    <side-menus>
-      <!-- Center content -->
-      <pane side-menu-content>
+</head>
+<body ng-app="todoapp" ng-controller="TodoCtrl">
+<side-menus>
+    <!-- Center content -->
+    <pane side-menu-content>
         <header class="bar bar-header bar-energized">
-          <button class="button button-icon" ng-click="toggleProjects()">
-            <i class="icon ion-navicon"></i>
-          </button>
-          <h1 class="title">{{activeProject}}</h1>
-          <!-- New Task button-->
-          <button class="button" ng-click="newTodo()">
-            New
-          </button>
+            <button class="button button-icon" ng-click="toggleProjects()">
+                <i class="icon ion-navicon"></i>
+            </button>
+            <h1 class="title">{{activeProject}}</h1>
+            <!-- New Task button-->
+            <button class="button" ng-click="newTodo()">
+                New
+            </button>
         </header>
         <content has-header="true" scroll="false">
-          <list>
-            <todo class="item" ng-repeat="todo in todos">
-              {{todo.title}}
-            </todo>
-          </list>
+            <list>
+                <todo class="item" ng-repeat="todo in todos | filter:statusFilter track by $index">
+                    {{todo.title}}
+                </todo>
+            </list>
         </content>
-      </pane>
-      <!-- Left menu -->
-      <side-menu side="left">
+        <div class="tabs">
+            <a class="tab-item tab-item-calm" ng-class="{selected: location.path() == '/'} " href="#/">All</a>
+            <a class="tab-item tab-item-calm" ng-class="{selected: location.path() == '/active'}" href="#/active">Active</a>
+            <a class="tab-item tab-item-calm" ng-class="{selected: location.path() == '/completed'}" href="#/completed">Completed</a>
+        </div>
+    </pane>
+    <!-- Left menu -->
+    <side-menu side="left">
         <header class="bar bar-header bar-assertive">
-          <h1 class="title">Projects</h1>
-          <button class="button button-icon" ng-click="newProject()">
-            <i class="icon ion-plus"></i>
-          </button>
+            <h1 class="title">Projects</h1>
+            <button class="button button-icon" ng-click="newProject()">
+                <i class="icon ion-plus"></i>
+            </button>
         </header>
         <content has-header="true" scroll="false" padded="true">
-          <list>
-            <div class="item" ng-click="selectProject(project)" ng-repeat="project in projects">
-              {{project}}
-            </div>
-          </list>
+            <list>
+                <div class="item" ng-click="selectProject(project)" ng-repeat="project in projects">
+                    {{project}}
+                </div>
+            </list>
         </content>
-      </side-menu>
-    </side-menus>
-    <script id="new-todo.html" type="text/ng-template">
-      <div class="modal">
+    </side-menu>
+</side-menus>
+<script id="new-todo.html" type="text/ng-template">
+    <div class="modal">
 
         <!-- Modal header bar -->
         <header class="bar bar-header bar-secondary">
-          <h1 class="title">New Task</h1>
-          <button class="button button-outline button-assertive" ng-click="closeNewTodo()">Cancel</button>
+            <h1 class="title">New Task</h1>
+            <button class="button button-outline button-assertive" ng-click="closeNewTodo()">Cancel</button>
         </header>
 
         <!-- Modal content area -->
         <content has-header="true">
-          <form ng-submit="addTodo(todo)">
-            <div class="list list-inset">
-              <label class="item item-input">
-                <input type="text" placeholder="What needs to be done?" ng-model="todo.title">
-              </label>
-            </div>
-            <div class="padding">
-              <button type="submit" class="button button-block button-balanced">Create Todo</button>
-            </div>
-          </form>
+            <form ng-submit="addTodo(todo)">
+                <div class="list list-inset">
+                    <label class="item item-input">
+                        <input type="text" placeholder="What needs to be done?" ng-model="todo.title">
+                    </label>
+                </div>
+                <div class="padding">
+                    <button type="submit" class="button button-block button-balanced">Create Todo</button>
+                </div>
+            </form>
         </content>
-      </div>
-    </script>
-    <script id="new-project.html" type="text/ng-template">
-      <div class="modal">
+    </div>
+</script>
+<script id="new-project.html" type="text/ng-template">
+    <div class="modal">
 
         <!-- Modal header bar -->
         <header class="bar bar-header bar-secondary">
-          <h1 class="title">New Project</h1>
-          <button class="button button-outline button-assertive" ng-click="closeNewProject()">Cancel</button>
+            <h1 class="title">New Project</h1>
+            <button class="button button-outline button-assertive" ng-click="closeNewProject()">Cancel</button>
         </header>
 
         <!-- Modal content area -->
         <content has-header="true">
-          <form ng-submit="addProject(project)">
-            <div class="list list-inset">
-              <label class="item item-input">
-                <input type="text" placeholder="What project do you want to add?" ng-model="project.title">
-              </label>
-            </div>
-            <div class="padding">
-              <button type="submit" class="button button-block button-balanced">Create Project</button>
-            </div>
-          </form>
+            <form ng-submit="addProject(project)">
+                <div class="list list-inset">
+                    <label class="item item-input">
+                        <input type="text" placeholder="What project do you want to add?" ng-model="project.title">
+                    </label>
+                </div>
+                <div class="padding">
+                    <button type="submit" class="button button-block button-balanced">Create Project</button>
+                </div>
+            </form>
         </content>
-      </div>
-    </script>
-  </body>
+    </div>
+</script>
+</body>
 </html>
