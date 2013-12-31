@@ -7,8 +7,14 @@ todoapp.controller('TodoCtrl', function TodoCtrl($scope, $location, $timeout, to
     $scope.allChecked = val;
   });
 
-  Modal.fromTemplateUrl('new-task.html', function(modal) {
+  Modal.fromTemplateUrl('new-todo.html', function(modal) {
     $scope.todoModal = modal;
+  }, {
+    scope: $scope
+  });
+
+  Modal.fromTemplateUrl('new-project.html', function(modal) {
+    $scope.projectModal = modal;
   }, {
     scope: $scope
   });
@@ -17,14 +23,30 @@ todoapp.controller('TodoCtrl', function TodoCtrl($scope, $location, $timeout, to
     if(project === null || project === undefined || project === '') {
       return;
     }
-    $scope.projects.push(project);
-    $scope.selectProject(project);
-    todoStorage.putProject(project);
+
+    if($scope.projects.indexOf(project.title) === -1) {
+      $scope.projects.push(project.title);
+      todoStorage.putProject(project.title);
+    }
+
+    console.log($scope.projects);
+
+    $scope.selectProject(project.title);
+    $scope.projectModal.hide();
+
+    project.title = '';
   };
 
   $scope.newProject = function() {
-    var project = prompt('Insert a project name:');
-    $scope.addProject(project);
+    $scope.projectModal.show();
+  };
+
+  $scope.closeNewProject = function() {
+    if($scope.projects.length === 0) {
+      alert("You must have atleast one project");
+      return;
+    }
+    $scope.projectModal.hide();
   };
 
   $scope.selectProject = function(project) {

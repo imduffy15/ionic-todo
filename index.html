@@ -61,7 +61,7 @@
         </content>
       </side-menu>
     </side-menus>
-    <script id="new-task.html" type="text/ng-template">
+    <script id="new-todo.html" type="text/ng-template">
       <div class="modal">
 
         <!-- Modal header bar -->
@@ -91,12 +91,12 @@
         <!-- Modal header bar -->
         <header class="bar bar-header bar-secondary">
           <h1 class="title">New Project</h1>
-          <button class="button button-outline button-assertive" ng-click="closeNewTask()">Cancel</button>
+          <button class="button button-outline button-assertive" ng-click="closeNewProject()">Cancel</button>
         </header>
 
         <!-- Modal content area -->
         <content has-header="true">
-          <form ng-submit="createProject(project)">
+          <form ng-submit="addProject(project)">
             <div class="list list-inset">
               <label class="item item-input">
                 <input type="text" placeholder="What project do you want to add?" ng-model="project.title">
