@@ -54,7 +54,7 @@
         </header>
         <content has-header="true" scroll="false" padded="true">
           <list>
-            <div class="item" ng-repeat="project in projects">
+            <div class="item" ng-click="selectProject(project)" ng-repeat="project in projects">
               {{project}}
             </div>
           </list>

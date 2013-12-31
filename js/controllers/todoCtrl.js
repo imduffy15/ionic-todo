@@ -28,6 +28,10 @@ todoapp.controller('TodoCtrl', function TodoCtrl($scope, $location, $timeout, to
   };
 
   $scope.selectProject = function(project) {
+    if($scope.activeProject == project) {
+      $scope.sideMenuController.close();
+      return;
+    }
     $scope.activeProject = project;
     $scope.todos = todoStorage.getTodos($scope.activeProject);
     todoStorage.setLastActiveProject(project);
