@@ -38,7 +38,7 @@ todoapp.controller('TodoCtrl', function TodoCtrl($scope, $location, $timeout, to
     });
 
     $scope.addProject = function (project) {
-        if (project === null || project === undefined || project === '') {
+        if (project === null || project === undefined || project === '' || project.title === '') {
             return;
         }
 
@@ -79,7 +79,7 @@ todoapp.controller('TodoCtrl', function TodoCtrl($scope, $location, $timeout, to
     };
 
     $scope.addTodo = function (todo) {
-        if (todo === null || todo === undefined || todo === '') {
+        if (todo === null || todo === undefined || todo === '' || todo.title === '') {
             return;
         }
 
