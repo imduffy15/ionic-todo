@@ -18,13 +18,13 @@ todoapp.controller('TodoCtrl', function TodoCtrl($scope, $location, $timeout, to
       return;
     }
     $scope.projects.push(project);
+    $scope.selectProject(project);
     todoStorage.putProject(project);
   };
 
   $scope.newProject = function() {
     var project = prompt('Insert a project name:');
     $scope.addProject(project);
-    $scope.selectProject(project);
   };
 
   $scope.selectProject = function(project) {
@@ -39,8 +39,7 @@ todoapp.controller('TodoCtrl', function TodoCtrl($scope, $location, $timeout, to
   };
 
   $scope.addTodo = function(todo) {
-    if(todo === undefined) {
-      $scope.todoModal.hide();
+    if(todo === null || todo === undefined || todo === '') {
       return;
     }
 
