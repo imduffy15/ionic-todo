@@ -43,8 +43,9 @@
         </header>
         <content has-header="true" scroll="false">
             <list>
-                <div class="item" ng-repeat="todo in todos | filter:statusFilter" ng-click="todoCompleted(todo)" ng-class="{completed: todo.completed}">
-                    {{todo.title}}
+                <div class="item" ng-repeat="todo in todos | filter:statusFilter" ng-click="todoCompleted(todo)">
+                        <i ng-class="{balanced: todo.completed}" class="ion ion-android-checkmark stable"></i>
+                        <a ng-class="{completed: todo.completed}">{{todo.title}}</a>
                 </div>
             </list>
         </content>
