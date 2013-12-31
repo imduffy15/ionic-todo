@@ -1,7 +1,7 @@
 todoapp.controller('TodoCtrl', function TodoCtrl($scope, $location, $timeout, todoStorage, filterFilter, Modal) {
-  var projects = $scope.projects = todoStorage.getProjects();
-  var activeProject = $scope.activeProject = todoStorage.getLastActiveProject();
-  var todos = $scope.todos = todoStorage.getTodos(activeProject);
+  $scope.projects = todoStorage.getProjects();
+  $scope.activeProject = todoStorage.getLastActiveProject();
+  $scope.todos = todoStorage.getTodos($scope.activeProject);
 
   $scope.$watch('remainingCount == 0', function(val) {
     $scope.allChecked = val;
@@ -17,13 +17,21 @@ todoapp.controller('TodoCtrl', function TodoCtrl($scope, $location, $timeout, to
     if(project === null || project === undefined || project === '') {
       return;
     }
-    projects.push(project);
+    $scope.projects.push(project);
     todoStorage.putProject(project);
   };
 
   $scope.newProject = function() {
     var project = prompt('Insert a project name:');
     $scope.addProject(project);
+    $scope.selectProject(project);
+  };
+
+  $scope.selectProject = function(project) {
+    $scope.activeProject = project;
+    $scope.todos = todoStorage.getTodos($scope.activeProject);
+    todoStorage.setLastActiveProject(project);
+    $scope.sideMenuController.close();
   };
 
   $scope.addTodo = function(todo) {
@@ -32,12 +40,12 @@ todoapp.controller('TodoCtrl', function TodoCtrl($scope, $location, $timeout, to
       return;
     }
 
-    todos.push({
+    $scope.todos.push({
       title: todo.title,
       completed: false
     });
 
-    todoStorage.putTodo(activeProject, todos);
+    todoStorage.putTodo($scope.activeProject, $scope.todos);
     $scope.todoModal.hide();
     todo.title = '';
 
@@ -85,7 +93,7 @@ todoapp.controller('TodoCtrl', function TodoCtrl($scope, $location, $timeout, to
   $timeout(function() {
     if($scope.projects.length === 0) {
       while(true) {
-        console.log("no projects");
+        $scope.newProject();
         break;
       }
     }

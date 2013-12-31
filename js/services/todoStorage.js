@@ -18,6 +18,9 @@ todoapp.factory('todoStorage', function(filterFilter) {
     },
     getLastActiveProject: function() {
       return localStorage.getItem('lastActiveProject') || this.getProjects()[0];
+    },
+    setLastActiveProject: function(project) {
+      localStorage.setItem('lastActiveProject', project);
     }
   };
 });
